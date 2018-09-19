@@ -1,0 +1,187 @@
+%%HP: T(0)A(D)F(.);
+@ Argumentos:
+@ Autor:
+@ E-mail:
+@ VersiÛn:
+@ Creado con HPUserEdit 6
+
+´
+
+'E' PURGE
+CLLCD
+DO
+"ENGR.C.HELI øCalculo?"
+  {{"Fatiga flexion" 1.}
+  {"Fatiga superficial" 2.}
+  {"SALIR" 3.}}
+  1
+  CHOOSE DROP 'E' STO
+
+CASE 'E==1'
+THEN 
+
+DO
+"C·lculo del Engranaje"
+{
+{ "Se" "TensiÛn de fatiga corregida(Mpa)" 0 }
+{ "T" "Fuerza tangencial (Newtons)" 0 }
+{ "Ko" "Factor de aplicaciÛn de carga" 0 }
+{ "Km" "Factor de distribuciÛn de carga" 0 }
+{ "Kv" "Factor de velocidad" 0 }
+{ "J" "Factor geomÈtrico AGMA" 0 }
+{ "CC" "(5,10,15)(baja,calidad,A.cald.)" 0 }
+{ "n" "Coeficiente de seguridad" 0 }
+{ "Yn" "factor mod vida 10^7=1" 0 }
+}
+3
+{ }
+{ NOVAL NOVAL NOVAL NOVAL NOVAL NOVAL 10 NOVAL 1 }
+INFORM
+IF
+THEN
+  OBJç DROP ç Se T Ko Km Kv J CC n Yn
+
+´
+
+'É((n*T*Ko*Km)/(Se*Kv*J*CC*Yn))' EVAL çNUM "El MÛdulo en mm es: "  SWAP + MSGBOX
+
+'É((n*T*Ko*Km)/(Se*Kv*J*CC*Yn))' EVAL 'm' STO
+ª
+
+1. 'R' STO
+CLLCD
+"SALIR" { { "NO" 1. } { "SÕ" 2. } } 1. CHOOSE DROP 'R' STO
+
+
+ELSE
+END
+
+UNTIL 'R==2.'
+END
+"Ultimo resultado almacenado en la variable 'm' " MSGBOX
+'R' PURGE
+
+END
+END
+
+CASE 'E==2'
+THEN
+'E' PURGE
+CLLCD
+DO
+"øQUE DESEA HACER?"
+  {{"Calc. b" 1.}
+  {"Calc. n" 2.}
+  {"SALIR" 3.}}
+  1
+  CHOOSE DROP 'E' STO
+
+
+
+CASE'E==1'
+
+THEN
+
+DO
+"Calc. Ancho cara (b)"
+{
+{"CH" "" 0 }
+{"CL" "" 0 }
+{"CT" "" 0 }
+{"CR" "" 0 }
+{"SC" "TensiÛn de fatiga corregida(Mpa)" 0 }
+{"N" "" 0 }
+{"CP" "" 0 }
+{"CV" "" 0 }
+{"D" "" 0 }
+{"I" "" 0 }
+{"FT" "Fuerza tangencial (Newtons)" 0 }
+}
+4
+{ }
+{ }
+INFORM
+
+IF
+THEN
+
+OBJç DROP ç CH CL CT CR1 SC N CP CV D I FT
+          ´
+          '(CP^2*CR1^2*CT^2*FT*N^2)/(CH^2*CL^2*CV*D*I*SC^2)*1000' EVAL çNUM " Ancho cara (b) en mm es: "  SWAP + MSGBOX
+          '(CP^2*CR1^2*CT^2*FT*N^2)/(CH^2*CL^2*CV*D*I*SC^2)*1000' EVAL 'n' STO
+          ª
+ELSE
+END
+
+CLLCD
+"SALIR" { { "NO" 1. } { "SÕ" 2. } } 1. CHOOSE DROP 'R' STO
+UNTIL 'R==2.'
+END
+
+
+END
+END
+
+
+CASE'E==2'
+
+THEN
+
+DO
+
+
+"C. Seg (debe ser mayor que 1)"
+{
+{"CH" "" 0 }
+{"CL" "" 0 }
+{"CT" "" 0 }
+{"CR" "" 0 }
+{"SC" "TensiÛn de fatiga corregida(Mpa)" 0 }
+{"B" "en mm" 0 }
+{"CP" "" 0 }
+{"CV" "" 0 }
+{"D" "" 0 }
+{"I" "" 0 }
+{"FT" "Fuerza tangencial (Newtons)" 0 }
+}
+4
+{ }
+{ }
+INFORM
+
+IF
+THEN
+OBJç DROP ç CH	CL	CT	CR1	SC	B	CP	CV	D	I	FT
+          ´
+          'É(CH*CL*SC)/(CP*CR1*CT*(FT/((B/1000)*CV*D*I)))' EVAL çNUM "n es : "  SWAP + MSGBOX
+          'É(CH*CL*SC)/(CP*CR1*CT*(FT/((B/1000)*CV*D*I)))' EVAL 'n' STO
+          ª
+
+ELSE
+END
+CLLCD
+1. 'R' STO
+CLLCD
+"SALIR" { { "NO" 1. } { "SÕ" 2. } } 1. CHOOSE DROP 'R' STO
+
+UNTIL 'R==2.'
+END
+
+
+
+
+END
+END
+
+UNTIL 'E==3'
+CLLCD
+END
+0. 'E' STO
+END
+END
+
+UNTIL 'E==3'
+CLLCD
+END
+
+ª
